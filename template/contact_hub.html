@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Hub // Neural Uplink</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Specific page override for full focus */
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="contact-page">
+    <canvas id="neuralCanvas"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.6;"></canvas>
+
+    <div class="contact-interface">
+        <div class="interface-container">
+            <!-- Left Panel: Uplink Form -->
+            <div class="uplink-panel">
+                <div class="panel-header">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span>INITIALIZE_UPLINK_PROTOCOL</span>
+                </div>
+
+                <form class="neural-form" id="contactForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>SOURCE_ID (Name)</label>
+                        <input type="text" name="name" class="cyber-input" placeholder="Enter Identify..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RETURN_VECTOR (Email)</label>
+                        <input type="email" name="email" class="cyber-input" placeholder="Data Return Path..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>PAYLOAD_CONTENT (Message)</label>
+                        <textarea name="message" class="cyber-input" rows="5"
+                            placeholder="Encrypting message packets..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="transmit-btn">
+                        <span class="btn-text">INITIATE TRANSMISSION</span>
+                        <div class="btn-glitch"></div>
+                    </button>
+
+                    <a href="{% url 'home' %}" class="abort-link">
+                        <i class="fas fa-times"></i> ABORT_SEQUENCE (Return Home)
+                    </a>
+                </form>
+            </div>
+
+            <!-- Right Panel: System Logs -->
+            <div class="status-panel">
+                <div class="panel-header">
+                    <i class="fas fa-network-wired"></i>
+                    <span>SYSTEM_LOGS</span>
+                </div>
+
+                <div class="log-console" id="logConsole">
+                    <div class="log-entry"><span class="log-time">[10:42:01]</span> <span class="log-success">Neural
+                            Interface Loaded</span></div>
+                    <div class="log-entry"><span class="log-time">[10:42:02]</span> <span class="log-info">Waiting for
+                            input stream...</span></div>
+                </div>
+
+                <div class="network-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">LATENCY</span>
+                        <span class="stat-val">12ms</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">ENCRYPTION</span>
+                        <span class="stat-val">AES-256</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'script/neural-bg.js' %}"></script>
+    <script>
+        // Simple log simulation
+        const consoleEl = document.getElementById('logConsole');
+        const inputs = document.querySelectorAll('.cyber-input');
+        const form = document.querySelector('form'); // Select the form
+
+        function addLog(msg, type = 'info') {
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-${type}">${msg}</span>`;
+            consoleEl.appendChild(div);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                const field = input.getAttribute('name').toUpperCase();
+                addLog(`Input field detected: ${field}`, 'info');
+            });
+
+            input.addEventListener('input', () => {
+                if (Math.random() > 0.8) addLog(`Buffering data packets...`, 'dim');
+            });
+        });
+
+        document.querySelector('.transmit-btn').addEventListener('mouseenter', () => {
+            addLog(`Ready to transmit`, 'success');
+        });
+
+        // AJAX Form Submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.querySelector('.transmit-btn');
+            const originalText = btn.querySelector('.btn-text').textContent;
+
+            btn.disabled = true;
+            btn.querySelector('.btn-text').textContent = "TRANSMITTING...";
+            addLog("Initiating Uplink...", "info");
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Get CSRF token
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                const response = await fetch(window.location.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.status === 'success') {
+                    addLog("TRANSMISSION COMPLETE", "success");
+                    addLog("Payload delivered to neural core.", "success");
+                    btn.querySelector('.btn-text').textContent = "SENT";
+                    form.reset();
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.querySelector('.btn-text').textContent = originalText;
+                    }, 3000);
+                } else {
+                    throw new Error(result.message || 'Unknown Error');
+                }
+            } catch (err) {
+                addLog(`CRITICAL: Uplink Failed - ${err.message}`, "error");
+                console.error(err);
+                btn.disabled = false;
+                btn.querySelector('.btn-text').textContent = "RETRY TRANSMISSION";
+            }
+        });
+    </script>
+</body>
+
+</html>

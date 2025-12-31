@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourav - AI/ML Research Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">GOURAV.ML</span>
+                <span class="logo-bracket">/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="{% url 'contact_hub' %}" class="nav-link highlight-link"><i
+                            class="fas fa-satellite-dish"></i> Uplink</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="{% static 'document/resume.pdf' %}" class="icon-btn" title="Download Resume" download>
+                    <i class="fas fa-download"></i>
+                </a>
+                <button class="icon-btn" title="Toggle Theme" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="terminal-badge">
+                    <i class="fas fa-terminal"></i> System.init()
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="gradient-text">GOURAV</span>
+                </h1>
+
+                <h2 class="hero-subtitle">AI/ML Research Engineer</h2>
+
+                <p class="hero-description">
+                    Highly motivated B.E. Student specializing in Artificial Intelligence and Machine Learning.
+                    Skilled in end-to-end system development, translating research into production-ready solutions
+                    for critical domains like emergency response and environmental monitoring.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">9.23</div>
+                        <div class="stat-label">GPA / 10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4+</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-flask"></i>
+                        View Projects
+                    </a>
+                    <a href="{% url 'contact_hub' %}" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <a href="{% static 'document/resume.pdf' %}" class="btn btn-secondary" download>
+                        <i class="fas fa-file-download"></i>
+                        Download CV
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/Gouravbirwaz" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/gourav-b62157295" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:gouravbirwaz@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// Career Timeline</span>
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-subtitle">Real-world impact through AI/ML implementation</p>
+            </div>
+
+            <div class="experience-timeline" id="experienceContainer">
+                <!-- Experience items will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section id="research" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// Core Competencies</span>
+                <h2 class="section-title">Areas of Expertise</h2>
+            </div>
+
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3>Computer Vision</h3>
+                    <p>Specialized in object detection, segmentation, and real-time video analysis using CNNs and
+                        state-of-the-art architectures.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Natural Language Processing</h3>
+                    <p>Experience with Transformers and LLM integration for automated text analysis and intelligent
+                        systems.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Scalable Architecture</h3>
+                    <p>Building robust backend systems using Django, microservices, and cloud infrastructure for
+                        production deployment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// Portfolio</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Production-grade AI/ML systems solving real-world challenges</p>
+            </div>
+
+            <div class="projects-grid" id="projectsContainer">
+                <!-- Projects will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// Technical Stack</span>
+                <h2 class="section-title">Skills & Technologies</h2>
+            </div>
+
+            <div class="skills-grid" id="skillsContainer">
+                <!-- Skills will be dynamically loaded -->
+            </div>
+
+            <!-- Certifications -->
+            <div class="subsection">
+                <h3 class="subsection-title">
+                    <i class="fas fa-certificate"></i>
+                    Professional Certifications
+                </h3>
+                <div class="certifications-grid" id="certificationsContainer">
+                    <!-- Certifications will be dynamically loaded -->
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="subsection">
+                <h3 class="subsection-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Academic Background
+                </h3>
+                <div class="education-timeline">
+                    <div class="education-item">
+                        <div class="education-year">2023 - 2027</div>
+                        <h4>Bachelor of Engineering in Computer Science</h4>
+                        <p class="education-specialization">AI & ML Specialization</p>
+                        <p class="education-university">Visvesvaraya Technological University, Karnataka</p>
+                        <p class="education-gpa">GPA: 9.23/10</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-year">2021</div>
+                        <h4>Pre-University Education</h4>
+                        <p class="education-university">Karnataka State Board</p>
+                        <p class="education-gpa">Grade: 95%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// Get In Touch</span>
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-subtitle">Let's discuss how we can work together</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="mailto:gouravbirwaz@gmail.com" class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>gouravbirwaz@gmail.com</p>
+                </a>
+                <a href="tel:+919141017165" class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Phone</h3>
+                    <p>+91 9141017165</p>
+                </a>
+                <a href="https://github.com/Gouravbirwaz" target="_blank" class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>@Gouravbirwaz</p>
+                </a>
+                <a href="https://linkedin.com/in/gourav-b62157295" target="_blank" class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <p>Gourav</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-status">
+                <div class="status-item">
+                    <span class="status-dot"></span>
+                    <span>System Operational</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-server"></i>
+                    <span>Region: Asia-South</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Build: v2.5.0</span>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2024 Gourav. Engineered with precision. Powered by AI.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'script/script.js' %}"></script>
+    <script src="{% static 'script/neural-bg.js' %}"></script>
+</body>
+
+</html>

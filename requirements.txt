@@ -1,0 +1,7 @@
+django
+google-genai
+mysqlclient
+pytz
+python-dotenv
+gunicorn
+whitenoise
